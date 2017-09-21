@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd  
+                        http://www.springframework.org/schema/context  
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd  
+                        http://www.springframework.org/schema/mvc  
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                        http://www.springframework.org/schema/aop
+          				http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+          				http://www.springframework.org/schema/tx   
+						http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+		
+	<!-- JNDI -->
+<!-- 	<bean id="dataSource" class="org.springframework.indi.JndiObjectFactoryBean"> -->
+<!--     <property name="jndiName">     -->
+<!--         <value>jdbc/demo</value> -->
+<!--     </property> -->
+<!-- 	</bean> -->
+
+<!-- 	<bean id="parentDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close"> -->
+<!--         <property name="driverClassName" value="${jdbc.localdb.driver}"/> -->
+<!--         <property name="url" value="${jdbc.localdb.url}"/> -->
+<!--         <property name="username" value="${jdbc.localdb.username}"/> -->
+<!--         <property name="password" value="${jdbc.localdb.password}"/> -->
+<!--         //<property name="maxActive" value="${jdbc.maxActive}"/> -->
+<!--         <property name="maxTotal" value="${jdbc.maxActive}"/> -->
+<!--         <property name="initialSize" value="${jdbc.initialSize}"/> -->
+<!--         //<property name="maxWait" value="${jdbc.maxWait}"/> -->
+<!-- 		<property name="maxWaitMillis" value="${jdbc.maxWait}"/> -->
+<!--         <property name="minIdle" value="${jdbc.minIdle}"/> -->
+<!--         <property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}"/> -->
+<!--         <property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}"/> -->
+<!--         <property name="validationQuery" value="SELECT 'x'"/> -->
+<!--         <property name="testWhileIdle" value="${jdbc.testWhileIdle}"/> -->
+<!--         <property name="testOnBorrow" value="${jdbc.testOnBorrow}"/> -->
+<!--         <property name="testOnReturn" value="${jdbc.testOnReturn}"/> -->
+<!--         //<property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements}"/> -->
+<!--         //<property name="maxPoolPreparedStatementPerConnectionSize" value="${jdbc.maxPoolPreparedStatementPerConnectionSize}"/> -->
+<!-- 	</bean> -->
+	
+	<!-- HikariDB -->
+	<bean id="parentDataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.localdb.driver}"/>
+		<property name="jdbcUrl" value="${jdbc.localdb.url}"/>
+		<property name="username" value="${jdbc.localdb.username}"/>
+		<property name="password" value="${jdbc.localdb.password}"/>
+
+        <property name="dataSourceProperties">
+        	<props>
+            <prop key="cachePrepStmts">true</prop>
+            <prop key="prepStmtCacheSize">250</prop>
+            <prop key="prepStmtCacheSqlLimit">2048</prop>
+            <prop key="useServerPrepStmts">true</prop>
+            <prop key="useLocalSessionState">true</prop>
+            <prop key="useLocalTransactionState">true</prop>
+            <prop key="rewriteBatchedStatements">true</prop>
+            <prop key="cacheResultSetMetadata">true</prop>
+            <prop key="cacheServerConfiguration">true</prop>
+            <prop key="elideSetAutoCommits">true</prop>
+            <prop key="maintainTimeStats">false</prop>
+       	</props>
+    	</property>
+	</bean>
+
+<!-- 	<bean id="backendDB" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close"> -->
+	<bean id="testDB" parent="parentDataSource">
+		<property name="driverClassName" value="${jdbc.testdb.driver}"/>
+<!--         <property name="url" value="${jdbc.testdb.url}"/> -->
+<!--         <property name="username" value="${jdbc.testdb.username}"/> -->
+<!--         <property name="password" value="${jdbc.testdb.password}"/> -->
+		
+		<property name="jdbcUrl" value="${jdbc.testdb.url}"/>
+		<property name="username" value="${jdbc.testdb.username}"/>
+		<property name="password" value="${jdbc.testdb.password}"/>
+        
+<!--         <property name="initialSize" value="${jdbc.initialSize}"/> -->
+<!--         <property name="minIdle" value="${jdbc.minIdle}"/> -->
+<!--         <property name="maxIdle" value="${jdbc.maxIdle}"/> -->
+<!-- 		<property name="maxTotal" value="${jdbc.maxActive}"/> -->
+<!-- 		<property name="maxWaitMillis" value="${jdbc.maxWait}"/> -->
+<!--         <property name="defaultAutoCommit" value="${jdbc.defaultAutoCommit}"/> -->
+<!--         <property name="RemoveAbandonedOnBorrow" value="${jdbc.removeAbandoned}"/> -->
+<!--         <property name="removeAbandonedTimeout" value="${jdbc.removeAbandonedTimeout}"/> -->
+<!--         <property name="testWhileIdle" value="${jdbc.testWhileIdle}"/> -->
+<!--         <property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}"/> -->
+<!--         <property name="numTestsPerEvictionRun" value="${jdbc.numTestsPerEvictionRun}"/> -->
+<!--         <property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}"/> -->
+	</bean>
+	
+	<bean id="operatingDB" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.operating.driver}"/>
+        <property name="url" value="${jdbc.operating.url}"/>
+        <property name="username" value="${jdbc.operating.username}"/>
+        <property name="password" value="${jdbc.operating.password}"/>
+        <property name="initialSize" value="${jdbc.initialSize}"/>
+        <property name="minIdle" value="${jdbc.minIdle}"/>
+        <property name="maxIdle" value="${jdbc.maxIdle}"/>
+<!--         <property name="maxActive" value="${jdbc.maxActive}"/> -->
+		<property name="maxTotal" value="${jdbc.maxActive}"/>
+<!--         <property name="maxWait" value="${jdbc.maxWait}"/> -->
+		<property name="maxWaitMillis" value="${jdbc.maxWait}"/>
+        <property name="defaultAutoCommit" value="${jdbc.defaultAutoCommit}"/>
+<!--         <property name="removeAbandoned" value="${jdbc.removeAbandoned}"/> -->
+        <property name="RemoveAbandonedOnBorrow" value="${jdbc.removeAbandoned}"/>
+        <property name="removeAbandonedTimeout" value="${jdbc.removeAbandonedTimeout}"/>
+        <property name="testWhileIdle" value="${jdbc.testWhileIdle}"/>
+        <property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}"/>
+        <property name="numTestsPerEvictionRun" value="${jdbc.numTestsPerEvictionRun}"/>
+        <property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}"/>
+	</bean>
+	
+	
+	<bean id="localDB" parent="parentDataSource">
+		<property name="driverClassName" value="${jdbc.localdb.driver}"/>
+<!--         <property name="url" value="${jdbc.localdb.url}"/> -->
+<!--         <property name="username" value="${jdbc.localdb.username}"/> -->
+<!--         <property name="password" value="${jdbc.localdb.password}"/> -->
+		
+		<property name="jdbcUrl" value="${jdbc.localdb.url}"/>
+		<property name="username" value="${jdbc.localdb.username}"/>
+		<property name="password" value="${jdbc.localdb.password}"/>
+	</bean>
+
+    <bean id="multipleDB" class="et.template.config.DataSourceContextHolder">
+        <property name="defaultTargetDataSource" ref="localDB"/>
+        <property name="targetDataSources">
+            <map>
+            	<entry key="localDB" value-ref="localDB"/>
+                <entry key="testDB" value-ref="testDB"/>
+                <entry key="operatingDB" value-ref="operatingDB"/>
+            </map>
+        </property>
+    </bean>
+    
+    
+	<!-- 不需要myBatis的配置映射 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="multipleDB" />
+		<!-- 自動掃描mapping.xml文件 -->
+		<property name="mapperLocations" value="classpath:et/template/mapping/*.xml"></property>
+	</bean>
+
+	<!-- DAO所在位置，Spring會自動搜尋以下的class -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="et.template.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
+
+	<!-- (事務管理)transaction manager, use JtaTransactionManager for global tx -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="multipleDB" />
+	</bean>
+	
+	<!-- 用annotation方式切換DataSource -->
+<!--     <bean id="sqlSessionFactoryLocal" class="org.mybatis.spring.SqlSessionFactoryBean"> -->
+<!--         <property name="configLocation" value="classpath:mybatis-config.xml"></property> -->
+<!--         <property name="dataSource" ref="localDB"/> -->
+<!--         <property name="mapperLocations"> -->
+<!--             <array> -->
+<!--                 <value>classpath:et/template/mapping/*.xml</value> -->
+<!--             </array> -->
+<!--         </property> -->
+<!--     </bean> -->
+<!--     <bean id="localScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer"> -->
+<!--         <property name="basePackage" value="et.template.mapping"/> -->
+<!--         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryLocal"/> -->
+<!--     </bean> -->
+	
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+</beans>

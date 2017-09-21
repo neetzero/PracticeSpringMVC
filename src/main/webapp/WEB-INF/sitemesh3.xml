@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+<!-- 這些頁面會被裝飾 -->
+<mapping path="/*" decorator="/WEB-INF/jsp/base.jsp" />
+
+<!-- 排除這些頁面 -->
+<mapping path="/" exclue="true" />
+<mapping path="/login" exclue="true" />
+<mapping path="/register" exclue="true" />
+<mapping path="/logout" exclue="true" />
+<mapping path="/theme/*" exclue="true" />
+
+
+
+
+<!-- <content-processor> -->
+<!-- 	<tag-rule-bundle class="com.lt.common.ext.sitemesh3.MyTagRuleBundle" /> -->
+<!-- </content-processor> -->
+
+
+</sitemesh>

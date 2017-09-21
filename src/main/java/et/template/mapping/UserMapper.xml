@@ -1,0 +1,56 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="et.template.dao.UserDao">
+
+	<resultMap id="Operator" type="et.template.model.User">
+		<result column="id" jdbcType="INTEGER" property="id" />
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+		<result column="status" jdbcType="TINYINT" property="status" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="pwd_change" jdbcType="TIMESTAMP" property="pwdChange" />
+	</resultMap>
+	
+	<insert id="insertUser" parameterType="et.template.model.User"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userName != null">
+				user_name,
+			</if>
+			password,
+			<if test="status != null">
+				status,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userName != null">
+				<!-- #{userName,jdbcType=VARCHAR}, -->
+				#{userName},
+			</if>
+			#{password},
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="createDate != null">
+				#{createDate},
+			</if>
+		</trim>
+		
+       	<selectKey keyProperty="id" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+	</insert>
+
+	<select id="findUser" resultMap="User" parameterType="String">
+		SELECT * from test.user WHERE user_name = #{userName} AND status = 1
+	</select>
+
+	<select id="findAllUsers" resultMap="User">
+		select * from test.user
+	</select>
+
+</mapper> 
