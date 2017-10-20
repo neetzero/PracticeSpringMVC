@@ -110,6 +110,7 @@
 <!-- 				</li> -->
 
 				<li><a href="sample.jsp"> <i class="fa fa-paw fa-lg"></i> Sample</a></li>
+				<li><a href="upload_sample.jsp"> <i class="fa fa-paw fa-lg"></i>Upload Sample</a></li>
 
 			</ul>
 		</div>

@@ -10,6 +10,9 @@
                         http://www.springframework.org/schema/mvc  
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<mvc:annotation-driven />
 
 	<!-- 環境變數 -->
 <!-- 	<context:property-placeholder location="classpath:config.properties" file-encoding="UTF-8" ignore-unresolvable="true" /> -->
@@ -22,7 +25,6 @@
 	<context:component-scan base-package="et.template.aspect" />
 <!-- 	<context:component-scan base-package="et.template.security" /> -->
 
-	<mvc:annotation-driven />
 	<!-- 靜態的css js檔位置 -->
 	<mvc:resources mapping="/theme/**" location="/theme/" />
 
@@ -88,7 +90,7 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="UTF-8" />
 		<!-- 檔案最大值 -->
-		<property name="maxUploadSize" value="10485760000" />
+		<property name="maxUploadSize" value="104857600" />
 		<!-- 使用記憶體最大值 -->
 		<property name="maxInMemorySize" value="40960" />
 	</bean>
