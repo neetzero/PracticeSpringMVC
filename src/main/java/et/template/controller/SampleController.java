@@ -79,10 +79,14 @@ public class SampleController {
 	}
 	
 	@RequestMapping(value = "/uploadMultipleFileExample", method = RequestMethod.POST)
-	public ModelAndView uploadMultipleFile(@RequestParam("uploadFile") String[] name, @RequestParam("uploadFile") MultipartFile[] file,  RedirectAttributes redirectAttributes) {
+	public ModelAndView uploadMultipleFile(@RequestParam("uploadFile") String[] name, @RequestParam("uploadFile") MultipartFile[] files,  RedirectAttributes redirectAttributes) {
 
 		ModelAndView mv = new ModelAndView();
-
+		for(MultipartFile file : files){
+			if(!file.isEmpty()){
+				//跟上面一樣
+			}
+		}
 
 		return mv;
 	}

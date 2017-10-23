@@ -16,7 +16,7 @@ import et.template.model.JsonModel;
 public class GlobalExceptionController {
 	
 	@Value("${json.return.fail}")
-	private int JSON_FAIL;
+	private String JSON_FAIL;
 	
 	@ExceptionHandler(GenericException.class)
 	public ModelAndView handleCustomException(GenericException ex) {
@@ -40,7 +40,7 @@ public class GlobalExceptionController {
 	@ExceptionHandler(JsonException.class)
 	@ResponseBody
 	public JsonModel handleJsonException(JsonException ex) {
-		JsonModel model = new JsonModel(JSON_FAIL, ex.getMessage());
+		JsonModel model = new JsonModel(Integer.valueOf(JSON_FAIL), ex.getMessage());
 		System.out.println("handleJsonException");
 		return model;
 	}
