@@ -6,14 +6,14 @@
 <!-- 因為用了sitemesh的關係，header會跟base.jsp一樣 -->
 <!-- 其他頁面只需要指定title和引入該頁面才使用的css和js -->
 <title>檔案上傳</title>
-<link href="${pageContext.request.contextPath}/theme/bootstrap/css/bootstrap-switch.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/theme/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-<script	src="${pageContext.request.contextPath}/theme/bootstrap/js/bootstrap-switch.min.js"></script>
-<script	src="${pageContext.request.contextPath}/theme/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
-<script	src="${pageContext.request.contextPath}/theme/bootstrap/js/bootstrap-datetimepicker.zh-TW.js"></script>
+<link href="theme/bootstrap/css/bootstrap-switch.min.css" rel="stylesheet">
+<link href="theme/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<script	src="theme/bootstrap/js/bootstrap-switch.min.js"></script>
+<script	src="theme/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+<script	src="theme/bootstrap/js/bootstrap-datetimepicker.zh-TW.js"></script>
 <style>
 	form {
-		border : 1px solid gray;
+		border-bottom : 1px solid gray;
 	}
 </style>
 </head>
@@ -84,6 +84,15 @@
 				</div>
 			</div>
 		</form>
+
+		<div class='row'>
+			<div class='col-xs-1'>
+				<label for ='downloadPDF'>下載PDF</label>
+			</div>
+			<div>
+  				<a href="downloadPDF">下載PDF</a>
+			</div>
+		</div>
 	</div>
 	<script>
 		$(function(){

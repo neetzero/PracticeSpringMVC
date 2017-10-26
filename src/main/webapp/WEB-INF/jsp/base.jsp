@@ -8,19 +8,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><s:message code="title" /></title>
-<link href="${pageContext.request.contextPath}/theme/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="${pageContext.request.contextPath}/theme/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/theme/font-awesome/css/font-awesome.min.css"	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/theme/nav.css" rel="stylesheet">
+<link href="theme/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="theme/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="theme/font-awesome/css/font-awesome.min.css"	rel="stylesheet">
+<link href="theme/nav.css" rel="stylesheet">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-<script	src="${pageContext.request.contextPath}/theme/jquery-3.2.1.min.js"></script>
-<script	src="${pageContext.request.contextPath}/theme/bootstrap/js/bootstrap.min.js"></script>
-<script	src="${pageContext.request.contextPath}/theme/moment.js"></script>
+<script	src="theme/jquery-3.2.1.min.js"></script>
+<script	src="theme/bootstrap/js/bootstrap.min.js"></script>
+<script	src="theme/moment.js"></script>
 <script>
 	$(function() {
 		$('#doLogout').click(function(){

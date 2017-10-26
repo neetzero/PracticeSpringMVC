@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.itextpdf.io.font.FontConstants;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
 
 import et.template.exception.JsonException;
 import et.template.model.JsonModel;
@@ -89,5 +99,26 @@ public class SampleController {
 		}
 
 		return mv;
+	}
+	
+	@RequestMapping(value = "downloadPDF", method = RequestMethod.GET)
+	public void downloadFile(HttpServletResponse response) {
+		
+		response.setContentType("application/pdf");
+		String headerKey = "Content-Disposition";
+		String headerValue = String.format("attachment; filename=\"%s\"", "test.pdf");
+		response.setHeader(headerKey, headerValue);
+		
+		try {
+			PdfWriter writer = new PdfWriter(response.getOutputStream());
+			PdfDocument pdf = new PdfDocument(writer);
+			PdfFont font = PdfFontFactory.createFont(FontConstants.COURIER);
+		    Document document = new Document(pdf);
+		    document.add(new Paragraph("Hello World!").setFont(font));
+		    document.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

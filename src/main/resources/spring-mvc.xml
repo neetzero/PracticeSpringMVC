@@ -15,7 +15,6 @@
 	<mvc:annotation-driven />
 
 	<!-- 環境變數 -->
-<!-- 	<context:property-placeholder location="classpath:config.properties" file-encoding="UTF-8" ignore-unresolvable="true" /> -->
 	<context:property-placeholder location="classpath:config.properties,classpath:jdbc.properties" file-encoding="UTF-8" ignore-unresolvable="true" />
 
 	<!-- 自動掃描，使SpringMVC認為包下用了@Controller的Class是Controller -->
@@ -26,11 +25,11 @@
 <!-- 	<context:component-scan base-package="et.template.security" /> -->
 
 	<!-- 靜態的css js檔位置 -->
+<!-- 	<mvc:default-servlet-handler/> -->
 	<mvc:resources mapping="/theme/**" location="/theme/" />
 
 	<!-- 避免IE執行AJAX時，出現下載JSON檔案 -->
-	<bean id="mappingJacksonHttpMessageConverter"
-		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 		<property name="supportedMediaTypes">
 			<list>
 				<value>text/html;charset=UTF-8</value>
@@ -38,15 +37,19 @@
 		</property>
 	</bean>
 	<!-- 啟動SpringMVC的註解功能，完成請求和註解POJO的映射 -->
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-		<property name="messageConverters">
-			<list>
-				<!-- JSON轉換器 -->
-				<ref bean="mappingJacksonHttpMessageConverter" />
-			</list>
-		</property>
-	</bean>
+	<!-- <mvc:annotation-driven /> 這行可以取代 RequestMappingHandlerMapping和RequestMappingHandlerAdapter-->
+<!-- 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"> Deprecated-->
+<!-- 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" /> -->
+<!-- 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"> -->
+<!-- 		<property name="messageConverters"> -->
+<!-- 			<list> -->
+<!-- 				JSON轉換器 -->
+<!-- 				<ref bean="mappingJacksonHttpMessageConverter" /> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+
+	 
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
